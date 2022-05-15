@@ -10,22 +10,24 @@ const {check,validationResult} = require('express-validator');
 // setting the view engine
 app.set('view engine', 'ejs');
 
+//Using the required middlewares for our application. 
+
 // using the bodyParser to parse the input received from the webpage
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Session is required to use flash
 app.use(session({
-  secret:'secret',
-  saveUninitialized: true,
-  resave: true
+  secret:'secret', // a random unique string key used to authenticate a session.
+  saveUninitialized: true, //this allows any uninitialized session to be sent to the store.
+  resave: false // It takes a Boolean value. It enables the session to be stored back to the session store, even if the session was never modified during the request.
 }));
 app.use(flash());
 
 
 app.get("/", (req, res) => {
   const error = req.flash('error');
-  res.render('index', { error }); // Rendering the HTML page
+  res.render('index', { error }); // Rendering the HTML page and using the error variable to link with the html element in which we want to use flash message. 
 });
 
 // Fetching the data entered by the user.
@@ -37,10 +39,10 @@ app.post("/", [
   // Checking and handling any error such as entering blank data etc.
   const errors = validationResult(req);
   if(!errors.isEmpty()){
-    req.flash('error',`Field cannot be empty!!! Please enter a number.`) // Flash the message if an error is found.
+    req.flash('error',`Field cannot be empty!!! Please enter a number between 1 to 100.`) // Flash the message if an error is found.
     res.redirect('/'); // Redirecting to the same page.
   }else{
-    // This part will only execute if there are no errors till now.
+  // Else part will only execute if there are no errors till now.
 
   // Storing the number we received as user input
   let number = req.body.number;
@@ -57,7 +59,7 @@ app.post("/", [
   }
   
   // Sending the result back to our webpage
-  res.send(`<h1>`+ 'The First ' + `<b>` + number + `</b>` + ' Fibonacci Numbers are :' + `</h1>` 
+  res.send(`<h1 style = "color :MediumSeaGreen;"> Result : </h1> <h2 style = "color : Blue">`+ 'The First ' + `<b>` + number + `</b>` + ' Fibonacci Numbers are :' + `</h2>` 
   + `<h3>` + ans + `</h3>`);
   }
   }
