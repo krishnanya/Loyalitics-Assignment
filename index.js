@@ -44,7 +44,7 @@ app.post("/", [
   const errors = validationResult(req);
 
   if(!errors.isEmpty()){
-    req.flash('error',`Field cannot be empty!!! Please enter a number between 1 to 100.`) // Flash the message if an error is found.
+    req.flash('error',`Number Field cannot be empty/blank!!! Please enter a number between 1 to 100.`) // Flash the message if an error is found.
     res.redirect('/'); // Redirecting to the same page.
   }else{
   // Else part will only execute if there are no errors till now.
@@ -65,8 +65,8 @@ app.post("/", [
   }
   
   // Sending the result back to our webpage
-  res.send(`<h1 style = "color :MediumSeaGreen;"> Result : </h1> <h2 style = "color : Blue">`+ 'The First ' + `<b>` + number + `</b>` + ' Fibonacci Numbers are :' + `</h2>` 
-  + `<h3>` + ans + `</h3>`);
+  res.send(`<h1 style = "color :MediumSeaGreen; font-style: oblique; text-decoration : underline"> Result : </h1> <br> <h2 style = "color : Blue; font-style: italic;">`+ 'The First ' + `<b>` + number + `</b>` + ' Fibonacci Numbers are :' + `</h2>` 
+  + `<h3 style = "color:red">` + ans + `</h3>`);
   }
   }
 );
