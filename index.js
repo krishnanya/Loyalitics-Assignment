@@ -1,4 +1,4 @@
-// Requiring the necessary modules for our application
+// Requiring the necessary modules/middlewares for our application
 const express = require("express");
 const app = express(); // Calling the express function to create our application
 const port = 4000; // Setting the port number
@@ -25,19 +25,24 @@ app.use(session({
 app.use(flash());
 
 
+// Getting the webpage
 app.get("/", (req, res) => {
   const error = req.flash('error');
   res.render('index', { error }); // Rendering the HTML page and using the error variable to link with the html element in which we want to use flash message. 
 });
 
+
 // Fetching the data entered by the user.
 app.post("/", [
+
     // Checking whether the entered value by the user is in the correct type or not using express-validator 
-    check('number','Enter a number').isNumeric(), 
+    check('number','Enter a number').isNumeric(),
+
 ], (req,res) => {
 
   // Checking and handling any error such as entering blank data etc.
   const errors = validationResult(req);
+
   if(!errors.isEmpty()){
     req.flash('error',`Field cannot be empty!!! Please enter a number between 1 to 100.`) // Flash the message if an error is found.
     res.redirect('/'); // Redirecting to the same page.
@@ -51,6 +56,7 @@ app.post("/", [
   let first = 0;
   let second = 1;
   let ans = "";
+
   for(i = 0; i<number; i++){
     ans = ans + " &emsp; " + first;
     let sum = first + second;
@@ -64,6 +70,7 @@ app.post("/", [
   }
   }
 );
+
 
 // Listening to check our connection to the webpage/application
 app.listen(port, () => {
