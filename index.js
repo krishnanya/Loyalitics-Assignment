@@ -44,7 +44,7 @@ app.post("/", [
   const errors = validationResult(req);
 
   if(!errors.isEmpty()){
-    req.flash('error',`Number Field cannot be empty/blank!!! Please enter a number between 1 to 100.`) // Flash the message if an error is found.
+    req.flash('error',` Error : Number Field cannot be empty/blank!!! Please enter a number between 1 to 100.`) // Flash the message if an error is found.
     res.redirect('/'); // Redirecting to the same page.
   }else{
   // Else part will only execute if there are no errors till now.
